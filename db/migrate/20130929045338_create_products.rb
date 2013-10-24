@@ -3,10 +3,10 @@ class CreateProducts < ActiveRecord::Migration
     create_table :products do |t|
       t.string   :name,             :limit => 64,       :null => false
       t.text     :description,      :limit => 1024
-      t.integer  :user_id,
-      t.integer  :lot_id,
-      t.integer  :category_id,
-
+      t.integer  :value
+      t.references  :user
+      t.references  :lot
+      t.references  :category
       t.timestamps
     end
     add_index :products, :user_id

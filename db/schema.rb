@@ -11,7 +11,51 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130922053040) do
+ActiveRecord::Schema.define(:version => 20131001102401) do
+
+  create_table "categories", :id => false, :force => true do |t|
+    t.integer  "id"
+    t.string   "name",       :limit => 64, :null => false
+    t.string   "photo"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "categories", ["id"], :name => "index_categories_on_id", :unique => true
+
+  create_table "deliveries", :force => true do |t|
+    t.string   "name",       :limit => 64, :null => false
+    t.integer  "user_id"
+    t.integer  "lot_id"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  create_table "lots", :force => true do |t|
+    t.string   "name",        :limit => 64,   :null => false
+    t.text     "description", :limit => 2048
+    t.string   "prepay",      :limit => 128
+    t.string   "source",      :limit => 128
+    t.string   "photo"
+    t.integer  "user_id"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  create_table "products", :force => true do |t|
+    t.string   "name",        :limit => 64,   :null => false
+    t.text     "description", :limit => 1024
+    t.integer  "value"
+    t.integer  "user_id"
+    t.integer  "lot_id"
+    t.integer  "category_id"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "products", ["category_id"], :name => "index_products_on_category_id"
+  add_index "products", ["lot_id"], :name => "index_products_on_lot_id"
+  add_index "products", ["user_id"], :name => "index_products_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name",             :limit => 16,                      :null => false

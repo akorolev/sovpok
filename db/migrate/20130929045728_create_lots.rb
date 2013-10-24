@@ -5,9 +5,8 @@ class CreateLots < ActiveRecord::Migration
       t.text     :description,      :limit => 2048
       t.string   :prepay,           :limit => 128
       t.string   :source,           :limit => 128
-      t.string   :photo,
-
-      t.integer  :user_id,
+      t.string   :photo
+      t.references  :user
 
       t.timestamps
     end
